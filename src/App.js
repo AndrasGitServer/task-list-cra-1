@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import AllTasks from './components/AllTasks';
+import TaskDetails from './components/TaskDetails';
+
+
+let obj_details = [{
+  id: '', 
+  task: '', 
+  due: '', 
+  isComplete: ''
+}]
+
 
 function App() {
+
+  const [stateObj, setStateObj] = useState( obj_details );
+
+  const infoFromChild = child_data_obj => {
+    console.log('** In App component **');
+    console.log( child_data_obj );
+    setStateObj( child_data_obj );
+  }// ** infoFromChild => function ***********************************
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="top_div">
+      
+      <AllTasks infoToParent = {infoFromChild} />
+
+      <br />
+
+      {/* <TaskDetails obj_details={ obj_details }/> */}
+      <TaskDetails obj_details={ stateObj }/>
+
     </div>
   );
-}
+}// ** App component *************************************************
 
 export default App;
